@@ -35,7 +35,7 @@ public class ProductController {
             products = repository.findAll();
         }
 
-        if ("priceAsc".equals(sort)) {
+        if ("low to high".equals(sort)) {
 
             products.sort(
                     Comparator.comparing(
@@ -44,7 +44,7 @@ public class ProductController {
             );
         }
 
-        if ("priceDesc".equals(sort)) {
+        if ("high to low".equals(sort)) {
 
             products.sort(
                     Comparator.comparing(
