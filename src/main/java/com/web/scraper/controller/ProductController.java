@@ -82,7 +82,20 @@ public class ProductController {
     @PostMapping("/update")
     public String updateProduct(Product product) {
 
-        repository.save(product);
+        Product existingProduct = repository.findById(product.getId()).orElseThrow();
+
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setImageUrl(product.getImageUrl());
+
+        double priceEuro = Double.parseDouble(product.getPrice());
+
+        double priceRon = priceEuro * existingProduct.getExchangeRate();
+
+        existingProduct.setPriceRon(priceRon);
+
+        repository.save(existingProduct);
 
         return "redirect:/";
     }
